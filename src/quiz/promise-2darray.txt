@@ -1,1 +1,11 @@
 Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+
+sumPromise1 calls the sum2DArray with array2D, then the sum2DArray function return a new promise. The returning Promise first synchronously logs "Sum called ... " and checks the input "arr" is an array or not. 
+
+If the input "arr" is an array, the function uses setTimeout() with 0 milliseconds to defer the calculation of the sum of the input array. setTimeout() makes the operation asynchronous by placing the operation on task queue waiting for the event loop it move the operation to call stack once the call stack is empty from executing all the synchronous tasks. Once the calculation is complete, it logs "resolving ... " and resolve the sum.
+
+If the input "arr" is not an array, it logs "resolving ... " and reject the Promise with message "BAD INPUT: Expected array as input".
+
+At the end of the returning Promise, it logs "returning from sum" 
+
+The reason why "returning from sum" is logged to console before "resolving ..." is because the first log is synchronous, and the latter is asynchronous, which will only be executed after all the synchronous tasks are completed.
