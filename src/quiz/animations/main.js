@@ -13,19 +13,21 @@ const aliceTumbling = [
   const alice2 = document.querySelector("#alice2");
   const alice3 = document.querySelector("#alice3");
 
-  alice1
-    .animate(aliceTumbling, aliceTiming)
-    .finished
-    .then((res) => {
-        console.log(res);
-        alice2
-            .animate(aliceTumbling, aliceTiming)
-            .finished
-            .then((res) => {
-                console.log(res);
-                alice3.animate(aliceTumbling, aliceTiming);
-            })
-    });
+  async function animateAliceSequentially() {
+    try {
+      // Wait for alice1 to finish
+      await alice1.animate(aliceTumbling, aliceTiming).finished
+      // Wait for alice2 to finish
+      await alice2.animate(aliceTumbling, aliceTiming).finished
+      // Wait for alice3 to finish
+      await alice3.animate(aliceTumbling, aliceTiming).finished
+    } catch (err) {
+      // Handle any errors that might occur during the animations
+      console.log(`Error when animating: ${err.message}`)
+    }
+  }
+
+  animateAliceSequentially()
 
   // Promise chain  
   // alice1.animate(aliceTumbling, aliceTiming).finished  
